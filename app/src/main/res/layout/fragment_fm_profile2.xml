@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fm_profile">
+    tools:context=".fagment.fm_profile">
 
     <LinearLayout
         android:layout_width="match_parent"

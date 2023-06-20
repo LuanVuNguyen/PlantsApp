@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back_ground_add"
     android:orientation="vertical"
-    tools:context=".fm_add" >
+    tools:context=".fagment.fm_add" >
 
     <TableLayout
         android:layout_width="match_parent"

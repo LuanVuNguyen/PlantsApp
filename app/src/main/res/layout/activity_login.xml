@@ -55,6 +55,7 @@
             android:hint="Email"
             android:inputType="textPersonName"
             android:padding="16dp"
+            android:text="luannguyenvu06@gmail.com"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="24sp" />
@@ -71,8 +72,9 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:padding="16dp"
+            android:text="111111"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="24sp" />
@@ -93,7 +95,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/btn_signup"
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

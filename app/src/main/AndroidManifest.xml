@@ -15,7 +15,7 @@
         android:theme="@style/Theme.PlantsApp"
         tools:targetApi="31">
         <activity
-            android:name=".SplashTheme"
+            android:name=".custom.SplashTheme"
             android:exported="true"
             android:theme="@style/Theme.PlashSrceen">
             <intent-filter>
@@ -25,43 +25,53 @@
         </activity>
 
         <activity
-            android:name=".StartedActivity"
+            android:name=".activity.StartedActivity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name="SignupActivity"
+            android:name=".activity.SignupActivity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name="LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".ResetActicity"
+            android:name=".activity.ResetActicity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:theme="@style/Theme.Fab_Bottom_app_bar"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".AddPlantActivity"
+            android:name=".activity.AddPlantActivity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".SpiecesActivity"
+            android:name=".activity.SpiecesActivity"
             android:exported="false">
         </activity>
 
         <activity
-            android:name=".ArticleActivity"
+            android:name=".activity.ArticleActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".activity.SpieceArticleActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".activity.TusArticleActivity"
             android:exported="false">
         </activity>
 

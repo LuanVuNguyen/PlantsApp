@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/fm_home"
-        android:name="com.example.plantsapp.fm_home"
+        android:name="com.example.plantsapp.fagment.fm_home"
         android:label="fragment_fm_home"
         tools:layout="@layout/fragment_fm_home" />
     <fragment
         android:id="@+id/fm_profile"
-        android:name="com.example.plantsapp.fm_profile"
+        android:name="com.example.plantsapp.fagment.fm_profile"
         android:label="fragment_fm_profile2"
         tools:layout="@layout/fragment_fm_profile2" />
     <fragment
         android:id="@+id/fm_add"
-        android:name="com.example.plantsapp.fm_add"
+        android:name="com.example.plantsapp.fagment.fm_add"
         android:label="fragment_fm_add2"
         tools:layout="@layout/fragment_fm_add2" />
 </navigation>

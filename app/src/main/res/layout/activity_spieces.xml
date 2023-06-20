@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_menu_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/speciess">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="SPIECES"
+                    android:textColor="#0B0A09"
+                    android:textColorHighlight="#BA1717"
+                    android:textSize="35dp"
+                    android:textStyle="bold" />
+
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/txt_search_spieces"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edittext_bg2"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:drawablePadding="16dp"
+                android:ems="10"
+                android:hint="Search For Plants"
+                android:inputType="textPersonName"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24sp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar3"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <in.myinnos.alphabetsindexfastscrollrecycler.IndexFastScrollRecyclerView
+            android:id="@+id/fast_scroller_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
