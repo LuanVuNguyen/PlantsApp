@@ -1,10 +1,10 @@
 package com.example.plantsapp.custom
 
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.ArrayList
 
 object DataHelper {
     fun getAlphabetFullData(callback: (ArrayList<String>) -> Unit) {
@@ -24,7 +24,8 @@ object DataHelper {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle database error
+
+
             }
         })
     }

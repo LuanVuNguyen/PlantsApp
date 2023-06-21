@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,18 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class TusArticleActivity extends AppCompatActivity implements View.OnClickListener {
-
     private DatabaseReference databaseRef;
     private String nameperson;
-
     ImageView avt_tus, avt_persion, btn_like, btn_back;
-
     TextView hagtag1, hagtag2, name_tus, name_person, date, des;
-
     boolean isLiked = false;
     ProgressBar progressBar;
     ProgressBarManager progressBarManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +64,6 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 nameperson = dataSnapshot.child(Const.FieldNamePersonArticle).getValue(String.class);
                 String hagtag_1 = dataSnapshot.child(Const.FieldHagtagArticle).getValue(String.class);
                 String hagtag_2 = dataSnapshot.child(Const.FieldHagtag2Article).getValue(String.class);
@@ -77,7 +72,6 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
                 String avt_tus_ = dataSnapshot.child(Const.FieldAvtTusArticle).getValue(String.class);
                 String avt_person_ = dataSnapshot.child(Const.FieldAvtArticle).getValue(String.class);
                 String name_tus_ = dataSnapshot.child(Const.FieldNameTusArticle).getValue(String.class);
-
                 hagtag1.setText(hagtag_1);
                 hagtag2.setText(hagtag_2);
                 des.setText(des_);
@@ -91,7 +85,7 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra
+                Toast.makeText(TusArticleActivity.this, "Load Data Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,6 +124,13 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
             }
         }
     }
+    @Override
+    public void onBackPressed() {
 
+        Intent intent = new Intent(this, ArticleActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 
 }

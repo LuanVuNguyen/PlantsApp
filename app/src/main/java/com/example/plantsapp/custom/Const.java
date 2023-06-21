@@ -27,6 +27,9 @@ public static String refArticle = "Articles";
     public static String article1 = "Article 1";
     public static String article2 = "Article 2";
 
+    public static String Writer1 = "Shally Monic";
+    public static String Writer2 = "Shivani Vora";
+
     public static List<String> stringList = new ArrayList<>();
 
     public static void addStringToList(String string) {

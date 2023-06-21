@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,13 +38,12 @@ public class SpieceArticleActivity extends AppCompatActivity implements View.OnC
         progressBar = findViewById(R.id.progressBar2);
         progressBarManager = new ProgressBarManager(progressBar);
         init();
-        progressBarManager.showProgressBar();
         String itemData = getIntent().getStringExtra("itemData");
         databaseRef = FirebaseDatabase.getInstance().getReference().child(Const.refPlant).child(itemData);
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                progressBarManager.showProgressBar();
                 name = dataSnapshot.child(Const.FieldNameAdd).getValue(String.class);
                 String family = dataSnapshot.child(Const.FieldFamilyAdd).getValue(String.class);
                 String kingdom = dataSnapshot.child(Const.FieldKingdomAdd).getValue(String.class);
@@ -59,14 +59,14 @@ public class SpieceArticleActivity extends AppCompatActivity implements View.OnC
                 txt_des.setText(des);
                 check(name);
                 Picasso.get().load(image).into(avt_plant);
-
+                progressBarManager.hideProgressBar();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra
+                Toast.makeText(SpieceArticleActivity.this, "Load Data Failed", Toast.LENGTH_SHORT).show();
             }
         });
-        progressBarManager.hideProgressBar();
+
     }
     private void check(String name){
         if (Const.stringList.contains(name))

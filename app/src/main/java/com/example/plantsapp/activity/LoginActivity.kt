@@ -7,7 +7,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantsapp.R
 
@@ -63,10 +62,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_facebook -> {
-                println("facebook")
+                Toast.makeText(this, "update next version ", Toast.LENGTH_SHORT).show()
             }
             R.id.btn_google -> {
-                println("google")
+                Toast.makeText(this, "update next version", Toast.LENGTH_SHORT).show()
             }
             R.id.txt_back -> {
                 startActivity(Intent(this, SignupActivity::class.java))

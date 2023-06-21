@@ -1,6 +1,5 @@
 package com.example.plantsapp.fagment;
 
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.plantsapp.R;
+import com.example.plantsapp.activity.TusArticleActivity;
 import com.example.plantsapp.custom.Const;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +38,7 @@ public class SpeciesFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_species, container, false);
-        TableLayout tableLayout = view.findViewById(R.id.tablelayout);
+        TableLayout tableLayout = view.findViewById(R.id.tablelayout2);
         addTableRowToTableLayout(tableLayout);
         return view;
     }
@@ -72,7 +71,6 @@ public class SpeciesFragment extends Fragment  {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Xử lý khi có lỗi xảy ra
                     }
                 });
             } catch (Exception e) {

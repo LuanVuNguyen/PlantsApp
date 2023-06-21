@@ -24,24 +24,11 @@
                 android:background="@drawable/hello">
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="25dp"
-                    android:gravity="center_vertical"
-                    android:text="Hello Tory,"
-                    android:textColor="@color/black"
-                    android:textSize="35dp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="30dp"
                     android:gravity="center_vertical"
                     android:text="Let's Learn More About Plants"
                     android:textColor="@color/black"
@@ -50,13 +37,13 @@
 
                 <ImageView
                     android:id="@+id/img_avt"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginEnd="30dp"
                     android:background="@drawable/gb_avt"
                     tools:src="@tools:sample/avatars"
-                    tools:srcCompat="@drawable/plant" />
+                    tools:srcCompat="@drawable/babygroot" />
             </FrameLayout>
 
             <EditText

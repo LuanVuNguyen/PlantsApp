@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:324242463156:android:5e0163ed32e110ee7a3ae1",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324242463156-hmouk70qnj96jq3kfae9nsuqrvfvg4mc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "a0c395099f614d9740665a8430d31799b122a14e"
+          }
+        },
+        {
+          "client_id": "324242463156-o0mnt9dumcmpsmhja0ju908mhiqsf0mo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3NJ2W1v3Fw85WVAZPskndSJqOQ-rQuZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324242463156-o0mnt9dumcmpsmhja0ju908mhiqsf0mo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:324242463156:android:341c631fa54449ac7a3ae1",
         "android_client_info": {
           "package_name": "com.example.plantapps"
@@ -43,6 +80,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "324242463156-14fnta6ofb3b0ld13b1ogi47ge0h8p8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plantsapp",
+            "certificate_hash": "a0c395099f614d9740665a8430d31799b122a14e"
+          }
+        },
         {
           "client_id": "324242463156-o0mnt9dumcmpsmhja0ju908mhiqsf0mo.apps.googleusercontent.com",
           "client_type": 3
