@@ -113,7 +113,6 @@ public class AddPlantActivity extends AppCompatActivity implements View.OnClickL
         byte[] imageData = baos.toByteArray();
         UploadTask uploadTask = imageRef.putBytes(imageData);
         uploadTask.addOnSuccessListener(taskSnapshot -> {
-            // Lấy URL của hình ảnh sau khi tải lên thành công
             imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                  imageUrl = uri.toString();
                  pushdata(imageUrl);

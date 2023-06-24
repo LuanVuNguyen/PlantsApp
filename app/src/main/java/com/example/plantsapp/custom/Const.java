@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Const {
 
-
     public static String FieldNameAdd = "Name";
     public static String FieldFamilyAdd = "Family";
     public static String FieldDesAdd = "Description";
@@ -30,7 +29,15 @@ public static String refArticle = "Articles";
     public static String Writer1 = "Shally Monic";
     public static String Writer2 = "Shivani Vora";
 
+    public static String Userid = "";
+
+    public static String User = "Users";
+
+    public static String likedplants = "Liked Plants";
+    public static String likedarticle = "Liked Articles";
+
     public static List<String> stringList = new ArrayList<>();
+    public static List<String> stringList2 = new ArrayList<>();
 
     public static void addStringToList(String string) {
         if (!stringList.contains(string))
@@ -41,6 +48,17 @@ public static String refArticle = "Articles";
 
     public static void removeStringFromList(String string) {
         stringList.remove(string);
+    }
+
+    public static void addStringToList2(String string) {
+        if (!stringList2.contains(string))
+        {
+            stringList2.add(string);
+        }
+    }
+
+    public static void removeStringFromList2(String string) {
+        stringList2.remove(string);
     }
 
 }

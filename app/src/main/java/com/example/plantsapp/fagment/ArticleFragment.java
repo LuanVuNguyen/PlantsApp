@@ -46,7 +46,7 @@ public class ArticleFragment extends Fragment {
     private void addTableRowToTableLayout(TableLayout tableLayout) {
         tableLayout.removeAllViewsInLayout();
 
-        for (String name : Const.stringList) {
+        for (String name : Const.stringList2) {
             TableRow tableRow = new TableRow(getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
             tableRow.setGravity(Gravity.CENTER);

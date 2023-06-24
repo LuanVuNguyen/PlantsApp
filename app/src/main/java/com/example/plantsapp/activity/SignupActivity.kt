@@ -1,39 +1,69 @@
 package com.example.plantsapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantsapp.R
+import com.example.plantsapp.custom.FirebaseHelper
+
 
 class SignupActivity : AppCompatActivity(), View.OnClickListener {
-    var btn_signup: ImageView? = null
-    var txt_email: EditText? = null
-    var txt_password: EditText? = null
-    var txt_person: EditText? = null
-    var txt_back: TextView? = null
+    private val firebaseHelper = FirebaseHelper()
+
+    private lateinit var txtEmail: EditText
+    private lateinit var txtPassword: EditText
+    private lateinit var txtFullName: EditText
+    private lateinit var btnSignUp: ImageView
+    private lateinit var txtBack: TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+
         init()
     }
 
-    fun init() {
-        btn_signup = findViewById<View>(R.id.btn_login) as ImageView
-        btn_signup!!.setOnClickListener(this)
-        txt_email = findViewById<View>(R.id.txt_signup_email) as EditText
-        txt_password = findViewById<View>(R.id.txt_signup_password) as EditText
-        txt_person = findViewById<View>(R.id.txt_signup_personname) as EditText
-        txt_back = findViewById<View>(R.id.txt_back) as TextView
-        txt_back!!.setOnClickListener(this)
+    private fun init() {
+        txtEmail = findViewById(R.id.txt_signup_email)
+        txtPassword = findViewById(R.id.txt_signup_password)
+        txtFullName = findViewById(R.id.txt_signup_personname)
+        btnSignUp = findViewById(R.id.btn_signup)
+        txtBack = findViewById(R.id.txt_back)
+
+        btnSignUp.setOnClickListener(this)
+        txtBack.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.btn_login -> {
-                // Perform the signup button action
+            R.id.btn_signup -> {
+                val email = txtEmail.text.toString()
+                val password = txtPassword.text.toString()
+                val fullName = txtFullName.text.toString()
+
+                firebaseHelper.registerUser(email, password, fullName, object :
+                    FirebaseHelper.OnRegistrationCompleteListener {
+                    override fun onRegistrationComplete() {
+                        // Xử lý khi đăng ký thành công
+                        startActivity(Intent(this@SignupActivity,LoginActivity::class.java))
+                        Toast.makeText(this@SignupActivity, "Register succeed", Toast.LENGTH_SHORT).show()
+                        // Chuyển đến trang HomeActivity hoặc màn hình chính của ứng dụng
+
+
+                    }
+
+                    override fun onRegistrationFailed(errorMessage: String?) {
+                        // Xử lý khi đăng ký thất bại
+                        Toast.makeText(this@SignupActivity, "Register failed: $errorMessage", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
             }
             R.id.txt_back -> {
                 onBackPressedCustom()
@@ -42,8 +72,8 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun onBackPressedCustom() {
-        // Handle the custom back button action
         onBackPressed()
     }
+
 
 }

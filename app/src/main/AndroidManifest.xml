@@ -40,7 +40,7 @@
         </activity>
 
         <activity
-            android:name=".activity.ResetActicity"
+            android:name=".activity.ResetPassActivity"
             android:exported="false">
         </activity>
 

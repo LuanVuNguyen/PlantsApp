@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class TusArticleActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference databaseRef;
     private String nameperson;
@@ -90,13 +92,36 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
         });
     }
     private void check(String name){
-        if (Const.stringList.contains(name))
-        {
-            btn_like.setImageResource(R.drawable.like);
-        }
-        else{
-            btn_like.setImageResource(R.drawable.unlike);
-        }
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.User);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(Const.Userid).exists()) {
+                    ArrayList<String> likedPlants = new ArrayList<>();
+                    for (DataSnapshot likedPlantSnapshot : dataSnapshot.child(Const.Userid).child(Const.likedarticle).getChildren()) {
+                        String likedPlant = likedPlantSnapshot.getValue(String.class);
+                        likedPlants.add(likedPlant);
+                    }
+                    if (likedPlants.contains(name))
+                    {
+                        btn_like.setImageResource(R.drawable.like);
+                        System.out.println("like");
+                        isLiked = true;
+                    }
+                    else
+                    {
+                        btn_like.setImageResource(R.drawable.unlike);
+                        System.out.println("unlike");
+                        isLiked = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Xử lý lỗi nếu có
+            }
+        });
     }
 
     @Override
@@ -104,17 +129,18 @@ public class TusArticleActivity extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.btn_like:
             {
-
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Const.User);
                 if (!isLiked) {
                     btn_like.setImageResource(R.drawable.like);
-                    Const.addStringToList(nameperson);
+                    Const.addStringToList2(nameperson);
+                    ref.child(Const.Userid).child(Const.likedarticle).setValue(Const.stringList2);
                     isLiked = true;
                 } else {
                     btn_like.setImageResource(R.drawable.unlike);
-                    Const.removeStringFromList(nameperson);
+                    Const.removeStringFromList2(nameperson);
+                    ref.child(Const.Userid).child(Const.likedarticle).setValue(Const.stringList2);
                     isLiked = false;
                 }
-                System.out.println(Const.stringList);
                 break;
             }
 

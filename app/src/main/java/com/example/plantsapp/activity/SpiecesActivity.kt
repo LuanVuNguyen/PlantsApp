@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantsapp.R
 import com.example.plantsapp.RecyclerViewAdapter
+import com.example.plantsapp.custom.Const
 import com.example.plantsapp.custom.DataHelper
 import com.example.plantsapp.custom.ProgressBarManager
+import com.google.firebase.database.FirebaseDatabase
 import `in`.myinnos.alphabetsindexfastscrollrecycler.IndexFastScrollRecyclerView
 
 class SpiecesActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
@@ -44,6 +46,7 @@ class SpiecesActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickList
             override fun afterTextChanged(s: Editable?) {}
         })
         progressBarManager = ProgressBarManager(progressBar)
+
     }
 
     private fun initialiseUI() {

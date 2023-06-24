@@ -28,14 +28,7 @@
             <TableLayout
                 android:id="@+id/tablelayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"/>
-
-            </TableLayout>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

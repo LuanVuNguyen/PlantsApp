@@ -10,11 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.plantsapp.activity.AddPlantActivity;
 import com.example.plantsapp.activity.ArticleActivity;
 import com.example.plantsapp.R;
 import com.example.plantsapp.activity.SpiecesActivity;
+import com.example.plantsapp.custom.Const;
+import com.example.plantsapp.custom.FirebaseUpdateThread;
+import com.example.plantsapp.custom.FirebaseUpdateThreadArticle;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +76,7 @@ public class fm_home extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -102,7 +114,13 @@ public class fm_home extends Fragment {
                 mActivity.finish();
             }
         });
-
+        ImageView imgAvt = view.findViewById(R.id.img_avt);
+        imgAvt.setImageResource(R.drawable.babygroot);
+        FirebaseUpdateThreadArticle firebaseUpdateThreadArticle = new FirebaseUpdateThreadArticle(mActivity);
+        FirebaseUpdateThread firebaseUpdateThread = new FirebaseUpdateThread(mActivity);
+        firebaseUpdateThread.start();
+        firebaseUpdateThreadArticle.start();
         return view;
     }
+
 }

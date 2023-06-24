@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,13 @@ import androidx.fragment.app.Fragment;
 import com.example.plantsapp.R;
 import com.example.plantsapp.custom.Const;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ArticleActivity extends AppCompatActivity implements View.OnClickListener {
     ImageView btn_1, btn_2;
@@ -29,22 +37,28 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         btn_2.setOnClickListener(this);
         check();
     }
-
     private void check(){
-        System.out.println(Const.stringList);
-        for (String name : Const.stringList) {
-            try {
-                if (name.equals(Const.Writer1)) {
-                    btn_1.setImageResource(R.drawable.article_like);
-                } else if (name.equals(Const.Writer2)) {
-                    btn_2.setImageResource(R.drawable.article_like_2);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.User);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(Const.Userid).exists()) {
+                    for (DataSnapshot likedArticleSnapshot : dataSnapshot.child(Const.Userid).child(Const.likedarticle).getChildren()) {
+                        String likedArticle = likedArticleSnapshot.getValue(String.class);
+                        if (likedArticle.equals(Const.Writer1)) {
+                            btn_1.setImageResource(R.drawable.article_like);
+                        } else if (likedArticle.equals(Const.Writer2)) {
+                            btn_2.setImageResource(R.drawable.article_like_2);
+                        }
+                    }
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ArticleActivity.this, "Load Data Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 
 
 

@@ -8,11 +8,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.plantsapp.R;
+import com.example.plantsapp.custom.Const;
 import com.example.plantsapp.fagment.fm_add;
 import com.example.plantsapp.fagment.fm_home;
 import com.example.plantsapp.fagment.fm_profile;
@@ -30,36 +32,26 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_home);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
-        // Set the default selected fragment
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainerView, new fm_home(this))
                 .commit();
 
         btn_add = findViewById(R.id.floatingActionButton2);
         btn_add.setOnClickListener(this);
-        hideSystemNavigationBar();
     }
-    private void hideSystemNavigationBar() {
-        // Kiểm tra phiên bản Android
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // Ẩn thanh điều hướng hệ thống
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
-    }
+
+    private int backPressedCount = 0;
+    private static final int DOUBLE_BACK_PRESS_COUNT = 2;
 
     @Override
     public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        if (fragment instanceof fm_home) {
-            selectedFragment = new fm_home(this);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerView, selectedFragment)
-                    .commit();
+        if (backPressedCount < DOUBLE_BACK_PRESS_COUNT - 1) {
+            backPressedCount++;
+            Toast.makeText(this, "Press Back again to exit", Toast.LENGTH_SHORT).show();
         } else {
-            super.onBackPressed();
+            Const.stringList.clear();
+            Const.stringList2.clear();
+            finishAffinity();
         }
     }
 
