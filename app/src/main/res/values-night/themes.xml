@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PlantsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.PlantsApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.PlashSrceen" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.PlashSrceen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/background_plashscreen</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>

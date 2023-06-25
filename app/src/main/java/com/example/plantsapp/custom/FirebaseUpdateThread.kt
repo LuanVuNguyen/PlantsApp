@@ -1,38 +1,35 @@
-package com.example.plantsapp.custom;
+package com.example.plantsapp.custom
 
-import android.content.Context;
-import android.widget.Toast;
+import android.content.Context
+import android.widget.Toast
+import com.example.plantsapp.custom.Const.addStringToList
+import com.google.firebase.database.*
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+class FirebaseUpdateThread(context: Context?) : Thread() {
+    private val databaseReference: DatabaseReference
+    private val context: Context? = null
 
-public class FirebaseUpdateThread extends Thread {
-    private DatabaseReference databaseReference;
-    private Context context;
-    public FirebaseUpdateThread(Context context) {
-        databaseReference = FirebaseDatabase.getInstance().getReference(Const.User);
+    init {
+        databaseReference = FirebaseDatabase.getInstance().getReference(Const.User)
     }
 
-    @Override
-    public void run() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+    override fun run() {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.child(Const.Userid).exists()) {
-                    for (DataSnapshot likedPlantSnapshot : dataSnapshot.child(Const.Userid).child(Const.likedplants).getChildren()) {
-                        String likedPlant = likedPlantSnapshot.getValue(String.class);
-                        Const.addStringToList(likedPlant);
+                    for (likedPlantSnapshot in dataSnapshot.child(Const.Userid)
+                        .child(Const.likedplants).children) {
+                        val likedPlant = likedPlantSnapshot.getValue(
+                            String::class.java
+                        )
+                        addStringToList(likedPlant!!)
                     }
                 }
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(context, "Load Data Failed", Toast.LENGTH_SHORT).show();
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(context, "Load Data Failed", Toast.LENGTH_SHORT).show()
             }
-        });
+        })
     }
 }

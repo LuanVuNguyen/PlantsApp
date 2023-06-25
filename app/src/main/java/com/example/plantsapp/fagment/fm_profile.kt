@@ -1,87 +1,64 @@
-package com.example.plantsapp.fagment;
+package com.example.plantsapp.fagment
 
-import android.os.Bundle;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.example.plantsapp.R
+import com.example.plantsapp.adapter.ProfileAdapter
+import com.example.plantsapp.custom.Const
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
+class fm_profile : Fragment() {
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.plantsapp.adapter.ProfileAdapter;
-import com.example.plantsapp.R;
-import com.example.plantsapp.custom.Const;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-
-public class fm_profile extends Fragment {
-
-    public fm_profile() {
-        // Required empty public constructor
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_fm_profile2, container, false)
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        return inflater.inflate(R.layout.fragment_fm_profile2, container, false);
-    }
+        val uname = view.findViewById<TextView>(R.id.txt_edit_name)
+        val title = view.findViewById<TextView>(R.id.textView5)
+        val imgAvt = view.findViewById<ImageView>(R.id.img_avt)
+        val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
+        val viewPager = view.findViewById<ViewPager2>(R.id.view_paper)
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-        TextView uname = view.findViewById(R.id.txt_edit_name);
-        TextView title = view.findViewById(R.id.textView5);
-        ImageView imgAvt = view.findViewById(R.id.img_avt);
-        TabLayout tabLayout = view.findViewById(R.id.tab_layout);
-        ViewPager2 viewPager = view.findViewById(R.id.view_paper);
-
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.User);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String usrname = dataSnapshot.child(Const.Userid).child("displayName").getValue(String.class);
-                uname.setText(usrname + ", ");
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Const.User)
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val usrname: String? = dataSnapshot.child(Const.Userid).child("displayName").getValue(String::class.java)
+                uname.text = "$usrname, "
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý lỗi nếu có
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle errors if any
             }
-        });
+        })
 
+        title.text = "Let's Learn More About Plants"
 
+        imgAvt.setImageResource(R.drawable.babygroot)
 
+        val adapter = ProfileAdapter(childFragmentManager, lifecycle)
+        viewPager.adapter = adapter
 
-        title.setText("Let's Learn More About Plants");
-
-
-        imgAvt.setImageResource(R.drawable.babygroot);
-
-
-        ProfileAdapter adapter = new ProfileAdapter(getChildFragmentManager(), getLifecycle());
-        viewPager.setAdapter(adapter);
-
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             if (position == 0) {
-                tab.setText("Species");
+                tab.text = "Species"
             } else if (position == 1) {
-                tab.setText("Article");
+                tab.text = "Article"
             }
-        }).attach();
+        }.attach()
     }
 }

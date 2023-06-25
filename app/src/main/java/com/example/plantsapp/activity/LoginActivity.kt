@@ -19,7 +19,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     var txt_password: EditText? = null
     var txt_create_account: TextView? = null
     var txt_reset: TextView? = null
-    private lateinit var progressBar: ProgressBar
+    private var backPressedCount = 0
+
+    companion object {
+        private const val DOUBLE_BACK_PRESS_COUNT = 2
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -40,6 +44,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         txt_reset = findViewById<View>(R.id.txt_reset) as TextView
         txt_reset!!.setOnClickListener(this)
     }
+    override fun onBackPressed() {
+        if (backPressedCount < LoginActivity.DOUBLE_BACK_PRESS_COUNT - 1) {
+            backPressedCount++
+            Toast.makeText(this, "Press Back again to exit", Toast.LENGTH_SHORT).show()
+        } else {
+            finishAffinity()
+        }
+    }
 
     override fun onClick(v: View) {
         try {
@@ -47,7 +59,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.btn_login -> {
                     val email = txt_email?.text.toString()
                     val password = txt_password?.text.toString()
-                    // Kiểm tra email và password trên Authentication
                     val auth = FirebaseAuth.getInstance()
                     val credentials = EmailAuthProvider.getCredential(email, password)
                     auth.signInWithCredential(credentials)
@@ -57,8 +68,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 val user = FirebaseAuth.getInstance().currentUser
 
                                 val userId = user?.uid
-                                print(userId)
-                                Const.Userid = userId
+                                Const.Userid = userId.toString()
                                 Toast.makeText(
                                     this@LoginActivity,
                                     "Log In Succeed",
@@ -86,12 +96,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                 }
-                R.id.btn_facebook -> {
-                    println("facebook")
-                }
-                R.id.btn_google -> {
-                    println("google")
-                }
+
                 R.id.txt_signup -> {
                     startActivity(Intent(this, SignupActivity::class.java))
                 }

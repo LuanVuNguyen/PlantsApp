@@ -1,93 +1,77 @@
-package com.example.plantsapp.activity;
+package com.example.plantsapp.activity
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TableRow;
-import android.widget.Toast;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.plantsapp.R
+import com.example.plantsapp.custom.Const
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+class ArticleActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var btn_1: ImageView
+    private lateinit var btn_2: ImageView
 
-import com.example.plantsapp.R;
-import com.example.plantsapp.custom.Const;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-
-public class ArticleActivity extends AppCompatActivity implements View.OnClickListener {
-    ImageView btn_1, btn_2;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article);
-        init();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_article)
+        init()
     }
-    private void init(){
 
-        btn_1 = findViewById(R.id.article1);
-        btn_1.setOnClickListener(this);
-        btn_2 = findViewById(R.id.article2);
-        btn_2.setOnClickListener(this);
-        check();
+    private fun init() {
+        btn_1 = findViewById(R.id.article1)
+        btn_1.setOnClickListener(this)
+        btn_2 = findViewById(R.id.article2)
+        btn_2.setOnClickListener(this)
+        check()
     }
-    private void check(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Const.User);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+
+    private fun check() {
+        val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Const.User)
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.child(Const.Userid).exists()) {
-                    for (DataSnapshot likedArticleSnapshot : dataSnapshot.child(Const.Userid).child(Const.likedarticle).getChildren()) {
-                        String likedArticle = likedArticleSnapshot.getValue(String.class);
-                        if (likedArticle.equals(Const.Writer1)) {
-                            btn_1.setImageResource(R.drawable.article_like);
-                        } else if (likedArticle.equals(Const.Writer2)) {
-                            btn_2.setImageResource(R.drawable.article_like_2);
+                    for (likedArticleSnapshot in dataSnapshot.child(Const.Userid).child(Const.likedarticle).children) {
+                        val likedArticle: String? = likedArticleSnapshot.getValue(String::class.java)
+                        if (likedArticle == Const.Writer1) {
+                            btn_1.setImageResource(R.drawable.article_like)
+                        } else if (likedArticle == Const.Writer2) {
+                            btn_2.setImageResource(R.drawable.article_like_2)
                         }
                     }
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ArticleActivity.this, "Load Data Failed", Toast.LENGTH_SHORT).show();
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@ArticleActivity, "Load Data Failed", Toast.LENGTH_SHORT).show()
             }
-        });
+        })
     }
 
-
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.article1:
-            {
-                Intent intent = new Intent(this, TusArticleActivity.class);
-                intent.putExtra("key", Const.article1);
-                startActivity(intent);
-                break;
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.article1 -> {
+                val intent = Intent(this, TusArticleActivity::class.java)
+                intent.putExtra("key", Const.article1)
+                startActivity(intent)
             }
-
-            case R.id.article2:
-            {
-                Intent intent = new Intent(this, TusArticleActivity.class);
-                intent.putExtra("key", Const.article2);
-                startActivity(intent);
-                break;
+            R.id.article2 -> {
+                val intent = Intent(this, TusArticleActivity::class.java)
+                intent.putExtra("key", Const.article2)
+                startActivity(intent)
             }
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        // Quay trở lại trang home
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

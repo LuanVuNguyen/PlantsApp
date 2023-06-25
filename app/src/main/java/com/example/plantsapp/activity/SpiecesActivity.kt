@@ -22,15 +22,9 @@ class SpiecesActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickList
     private var mSearchEditText: EditText? = null
     private val mData = ArrayList<String>()
     private val filteredData = ArrayList<String>()
-    var progressBar: ProgressBar? = null
-    var progressBarManager: ProgressBarManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spieces)
-        progressBar = findViewById(R.id.progressBar3)
-        progressBarManager = ProgressBarManager(progressBar)
-        progressBarManager!!.showProgressBar()
         mRecyclerView = findViewById(R.id.fast_scroller_recycler)
         mSearchEditText = findViewById(R.id.txt_search_spieces)
         initialiseUI()
@@ -45,8 +39,6 @@ class SpiecesActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickList
 
             override fun afterTextChanged(s: Editable?) {}
         })
-        progressBarManager = ProgressBarManager(progressBar)
-
     }
 
     private fun initialiseUI() {

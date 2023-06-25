@@ -1,64 +1,65 @@
-package com.example.plantsapp.custom;
+package com.example.plantsapp.custom
 
-import java.util.ArrayList;
-import java.util.List;
+object Const {
+    @JvmField
+    var FieldNameAdd = "Name"
+    var FieldFamilyAdd = "Family"
+    var FieldDesAdd = "Description"
+    var FieldKingdomAdd = "Kingdom"
+    var FieldHagtagAdd = "Hashtag1"
+    var FieldHagtag2Add = "Hashtag2"
+    @JvmField
+    var FieldImageAdd = "Image"
+    @JvmField
+    var refPlant = "Plants"
 
-public class Const {
-
-    public static String FieldNameAdd = "Name";
-    public static String FieldFamilyAdd = "Family";
-    public static String FieldDesAdd = "Description";
-    public static String FieldKingdomAdd = "Kingdom";
-    public static String FieldHagtagAdd = "Hashtag1";
-    public static String FieldHagtag2Add = "Hashtag2";
-    public static String FieldImageAdd = "Image";
-    public static String refPlant = "Plants";
-//  Article
-public static String refArticle = "Articles";
-    public static String FieldNameTusArticle = "Title";
-    public static String FieldHagtagArticle = "Hashtag1";
-    public static String FieldNamePersonArticle = "Writer";
-    public static String FieldDateArticle = "Date";
-    public static String FieldAvtArticle = "Avatar";
-    public static String FieldDesArticle = "Content";
-    public static String FieldAvtTusArticle = "Image";
-    public static String FieldHagtag2Article = "Hashtag2";
-    public static String article1 = "Article 1";
-    public static String article2 = "Article 2";
-
-    public static String Writer1 = "Shally Monic";
-    public static String Writer2 = "Shivani Vora";
-
-    public static String Userid = "";
-
-    public static String User = "Users";
-
-    public static String likedplants = "Liked Plants";
-    public static String likedarticle = "Liked Articles";
-
-    public static List<String> stringList = new ArrayList<>();
-    public static List<String> stringList2 = new ArrayList<>();
-
-    public static void addStringToList(String string) {
-        if (!stringList.contains(string))
-        {
-            stringList.add(string);
+    //  Article
+    var refArticle = "Articles"
+    var FieldNameTusArticle = "Title"
+    var FieldHagtagArticle = "Hashtag1"
+    var FieldNamePersonArticle = "Writer"
+    var FieldDateArticle = "Date"
+    var FieldAvtArticle = "Avatar"
+    var FieldDesArticle = "Content"
+    var FieldAvtTusArticle = "Image"
+    var FieldHagtag2Article = "Hashtag2"
+    var article1 = "Article 1"
+    var article2 = "Article 2"
+    @JvmField
+    var Writer1 = "Shally Monic"
+    @JvmField
+    var Writer2 = "Shivani Vora"
+    @JvmField
+    var Userid = ""
+    @JvmField
+    var User = "Users"
+    @JvmField
+    var likedplants = "Liked Plants"
+    @JvmField
+    var likedarticle = "Liked Articles"
+    @JvmField
+    var stringList: MutableList<String> = ArrayList()
+    @JvmField
+    var stringList2: MutableList<String> = ArrayList()
+    @JvmStatic
+    fun addStringToList(string: String) {
+        if (!stringList.contains(string)) {
+            stringList.add(string)
         }
     }
 
-    public static void removeStringFromList(String string) {
-        stringList.remove(string);
+    fun removeStringFromList(string: String) {
+        stringList.remove(string)
     }
 
-    public static void addStringToList2(String string) {
-        if (!stringList2.contains(string))
-        {
-            stringList2.add(string);
+    @JvmStatic
+    fun addStringToList2(string: String) {
+        if (!stringList2.contains(string)) {
+            stringList2.add(string)
         }
     }
 
-    public static void removeStringFromList2(String string) {
-        stringList2.remove(string);
+    fun removeStringFromList2(string: String) {
+        stringList2.remove(string)
     }
-
 }

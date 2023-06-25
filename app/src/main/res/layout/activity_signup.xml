@@ -53,7 +53,7 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"

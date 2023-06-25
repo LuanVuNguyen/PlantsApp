@@ -1,95 +1,84 @@
-package com.example.plantsapp.activity;
+package com.example.plantsapp.activity
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.plantsapp.R
+import com.example.plantsapp.custom.Const
+import com.example.plantsapp.fagment.fm_add
+import com.example.plantsapp.fagment.fm_home
+import com.example.plantsapp.fagment.fm_profile
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+    private lateinit var btn_add: FloatingActionButton
+    private var selectedFragment: Fragment? = null
+    private var backPressedCount = 0
 
-import com.example.plantsapp.R;
-import com.example.plantsapp.custom.Const;
-import com.example.plantsapp.fagment.fm_add;
-import com.example.plantsapp.fagment.fm_home;
-import com.example.plantsapp.fagment.fm_profile;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
-    FloatingActionButton btn_add;
-    private Fragment selectedFragment = null;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainerView, new fm_home(this))
-                .commit();
-
-        btn_add = findViewById(R.id.floatingActionButton2);
-        btn_add.setOnClickListener(this);
+    companion object {
+        private const val DOUBLE_BACK_PRESS_COUNT = 2
     }
 
-    private int backPressedCount = 0;
-    private static final int DOUBLE_BACK_PRESS_COUNT = 2;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView.setOnNavigationItemSelectedListener(this)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fm_home(this))
+            .commit()
 
-    @Override
-    public void onBackPressed() {
+        btn_add = findViewById(R.id.floatingActionButton2)
+        btn_add.setOnClickListener(this)
+    }
+
+    override fun onBackPressed() {
         if (backPressedCount < DOUBLE_BACK_PRESS_COUNT - 1) {
-            backPressedCount++;
-            Toast.makeText(this, "Press Back again to exit", Toast.LENGTH_SHORT).show();
+            backPressedCount++
+            Toast.makeText(this, "Press Back again to exit", Toast.LENGTH_SHORT).show()
         } else {
-            Const.stringList.clear();
-            Const.stringList2.clear();
-            finishAffinity();
+            Const.stringList.clear()
+            Const.stringList2.clear()
+            finishAffinity()
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.home:
-                System.out.println("profile");
-                selectedFragment = new fm_home(this);
-                break;
-            case R.id.person:
-                System.out.println("profile");
-                selectedFragment = new fm_profile();
-                break;
-            case R.id.placeholder:
-                selectedFragment = new fm_add(this);
-                break;
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        selectedFragment = when (item.itemId) {
+            R.id.home -> {
+                println("profile")
+                fm_home(this)
+            }
+            R.id.person -> {
+                println("profile")
+                fm_profile()
+            }
+            R.id.placeholder -> fm_add(this)
+            else -> null
         }
 
-        if (selectedFragment != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainerView, selectedFragment)
-                    .commit();
-            return true;
+        selectedFragment?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, it)
+                .commit()
+            return true
         }
-        return false;
+        return false
     }
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.floatingActionButton2){
-            selectedFragment = new fm_add(this);
-            if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView, selectedFragment)
-                        .commit();
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.floatingActionButton2) {
+            selectedFragment = fm_add(this)
+            selectedFragment?.let {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, it)
+                    .commit()
             }
         }
     }
-
 }

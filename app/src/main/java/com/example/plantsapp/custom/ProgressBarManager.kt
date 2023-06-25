@@ -1,25 +1,18 @@
-package com.example.plantsapp.custom;
+package com.example.plantsapp.custom
 
-import android.view.View;
-import android.widget.ProgressBar;
+import android.view.View
+import android.widget.ProgressBar
 
-public class ProgressBarManager {
-    private ProgressBar progressBar;
-
-    public ProgressBarManager(ProgressBar progressBar) {
-        this.progressBar = progressBar;
-    }
-
-    public void showProgressBar() {
+class ProgressBarManager(private val progressBar: ProgressBar?) {
+    fun showProgressBar() {
         if (progressBar != null) {
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar.visibility = View.VISIBLE
         }
     }
 
-    public void hideProgressBar() {
+    fun hideProgressBar() {
         if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
+            progressBar.visibility = View.GONE
         }
     }
 }
-

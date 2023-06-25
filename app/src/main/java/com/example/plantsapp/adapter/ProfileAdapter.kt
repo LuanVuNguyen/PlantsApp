@@ -1,33 +1,23 @@
-package com.example.plantsapp.adapter;
+package com.example.plantsapp.adapter
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.plantsapp.fagment.ArticleFragment
+import com.example.plantsapp.fagment.SpeciesFragment
 
-import com.example.plantsapp.fagment.ArticleFragment;
-import com.example.plantsapp.fagment.SpeciesFragment;
+class ProfileAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
-public class ProfileAdapter extends FragmentStateAdapter {
-
-    public ProfileAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-        super(fragmentManager, lifecycle);
-    }
-
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        if (position == 0) {
-            return new SpeciesFragment();
-        } else if (position == 1) {
-            return new ArticleFragment();
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> SpeciesFragment()
+            1 -> ArticleFragment()
+            else -> throw IllegalArgumentException("Invalid position $position")
         }
-        return null;
     }
 
-    @Override
-    public int getItemCount() {
-        return 2;
+    override fun getItemCount(): Int {
+        return 2
     }
 }

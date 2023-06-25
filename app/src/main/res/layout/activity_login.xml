@@ -53,7 +53,7 @@
             android:drawablePadding="16dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
@@ -116,23 +116,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/txt_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:gravity="bottom|center_horizontal"
+                android:shadowColor="@color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="5"
+                android:text="Create New Account"
+                android:textAlignment="center"
+                android:textColor="#FFEA2A"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/btn_google"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="40dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_btn_google" />
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_btn_google"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/btn_facebook"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="-40dp"
-                android:background="@drawable/shape_btn_facebook" />
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_btn_facebook"
+                android:visibility="gone" />
 
         </FrameLayout>
 
@@ -145,20 +163,5 @@
         android:layout_weight="0.2"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txt_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:gravity="bottom|center_horizontal"
-            android:shadowColor="@color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="5"
-            android:text="Create New Account"
-            android:textAlignment="center"
-            android:textColor="#FFEA2A"
-            android:textSize="20dp"
-            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
