@@ -38,29 +38,27 @@ class fm_home(private val mActivity: Activity) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_fm_home, container, false)
 
-        btn_add = view.findViewById(R.id.btn_add)
+        btn_add = view.findViewById(R.id.icon_add)
         btn_add.setOnClickListener {
             val intent = Intent(activity, AddPlantActivity::class.java)
             startActivity(intent)
             mActivity.finish()
         }
 
-        btn_species = view.findViewById(R.id.btn_species)
+        btn_species = view.findViewById(R.id.icon_species)
         btn_species.setOnClickListener {
             val intent = Intent(activity, SpiecesActivity::class.java)
             startActivity(intent)
             mActivity.finish()
         }
 
-        btn_article = view.findViewById(R.id.btn_article)
+        btn_article = view.findViewById(R.id.icon_article)
         btn_article.setOnClickListener {
             val intent = Intent(activity, ArticleActivity::class.java)
             startActivity(intent)
             mActivity.finish()
         }
 
-        val imgAvt = view.findViewById<ImageView>(R.id.img_avt)
-        imgAvt.setImageResource(R.drawable.babygroot)
         val firebaseUpdateThreadArticle = FirebaseUpdateThreadArticle(mActivity)
         val firebaseUpdateThread = FirebaseUpdateThread(mActivity)
         firebaseUpdateThread.start()

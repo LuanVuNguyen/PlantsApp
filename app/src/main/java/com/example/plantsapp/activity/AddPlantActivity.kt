@@ -98,7 +98,6 @@ class AddPlantActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun pushImage() {
-
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
         val storageRef: StorageReference = storage.reference
         val imageFileName: String = UUID.randomUUID().toString() + ".jpg"

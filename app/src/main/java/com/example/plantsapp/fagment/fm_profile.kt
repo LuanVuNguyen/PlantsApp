@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 
 class fm_profile : Fragment() {
 
@@ -29,7 +30,7 @@ class fm_profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val uname = view.findViewById<TextView>(R.id.txt_edit_name)
-        val title = view.findViewById<TextView>(R.id.textView5)
+        val title = view.findViewById<TextView>(R.id.txt_email)
         val imgAvt = view.findViewById<ImageView>(R.id.img_avt)
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = view.findViewById<ViewPager2>(R.id.view_paper)
@@ -38,7 +39,11 @@ class fm_profile : Fragment() {
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val usrname: String? = dataSnapshot.child(Const.Userid).child("displayName").getValue(String::class.java)
+                val avt: String? = dataSnapshot.child(Const.Userid).child("avatar").getValue(String::class.java)
+                val email: String? = dataSnapshot.child(Const.Userid).child("email").getValue(String::class.java)
+                Picasso.get().load(avt).into(imgAvt)
                 uname.text = "$usrname, "
+                title.text = "$email"
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -46,13 +51,8 @@ class fm_profile : Fragment() {
             }
         })
 
-        title.text = "Let's Learn More About Plants"
-
-        imgAvt.setImageResource(R.drawable.babygroot)
-
         val adapter = ProfileAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
-
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             if (position == 0) {
                 tab.text = "Species"
