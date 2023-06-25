@@ -1,7 +1,9 @@
 package com.example.plantsapp.fagment
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -9,6 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.plantsapp.activity.AddPlantActivity
 import com.example.plantsapp.activity.HomeActivity
@@ -25,18 +30,29 @@ class fm_add(private val mActivity: Activity) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_fm_add2, container, false)
-        dispatchTakePictureIntent()
+
+        if (ContextCompat.checkSelfPermission(
+                mActivity,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            dispatchTakePictureIntent()
+        } else {
+            ActivityCompat.requestPermissions(
+                mActivity,
+                arrayOf(Manifest.permission.CAMERA),
+                REQUEST_IMAGE_CAPTURE
+            )
+        }
         btn_open = rootView.findViewById(R.id.btn_add_image)
         btn_open.setOnClickListener {
             dispatchTakePictureIntent()
         }
-
         btn_back = rootView.findViewById(R.id.btn_back)
         btn_back.setOnClickListener {
             val intent = Intent(mActivity, HomeActivity::class.java)
             startActivity(intent)
         }
-
         return rootView
     }
 
@@ -58,6 +74,20 @@ class fm_add(private val mActivity: Activity) : Fragment() {
             val intent = Intent(activity, AddPlantActivity::class.java)
             intent.putExtra("captured_image", capturedImage)
             startActivity(intent)
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != REQUEST_IMAGE_CAPTURE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent()
+            } else {
+                Toast.makeText(mActivity, "Camera access denied", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

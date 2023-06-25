@@ -9,11 +9,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.plantsapp.R
-import com.example.plantsapp.custom.FirebaseHelper
+import com.example.plantsapp.custom.FirebaseSignUpHelper
+import java.util.regex.Pattern
 
 
 class SignupActivity : AppCompatActivity(), View.OnClickListener {
-    private val firebaseHelper = FirebaseHelper()
+    private val firebaseSignUpHelper = FirebaseSignUpHelper()
 
     private lateinit var txtEmail: EditText
     private lateinit var txtPassword: EditText
@@ -46,23 +47,26 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
                 val email = txtEmail.text.toString()
                 val password = txtPassword.text.toString()
                 val fullName = txtFullName.text.toString()
+                if (isStrongPassword(password)) {
+                    firebaseSignUpHelper.registerUser(email, password, fullName, object :
+                        FirebaseSignUpHelper.OnRegistrationCompleteListener {
+                        override fun onRegistrationComplete() {
+                            startActivity(Intent(this@SignupActivity,LoginActivity::class.java))
+                            Toast.makeText(this@SignupActivity, "Register succeed", Toast.LENGTH_SHORT).show()
 
-                firebaseHelper.registerUser(email, password, fullName, object :
-                    FirebaseHelper.OnRegistrationCompleteListener {
-                    override fun onRegistrationComplete() {
-                        // Xử lý khi đăng ký thành công
-                        startActivity(Intent(this@SignupActivity,LoginActivity::class.java))
-                        Toast.makeText(this@SignupActivity, "Register succeed", Toast.LENGTH_SHORT).show()
-                        // Chuyển đến trang HomeActivity hoặc màn hình chính của ứng dụng
+                        }
+
+                        override fun onRegistrationFailed(errorMessage: String?) {
+                            Toast.makeText(this@SignupActivity, "Register failed: $errorMessage", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                } else {
+                    Toast.makeText(this@SignupActivity, "Password consists of 11 characters with letters, numbers and special characters, lowercase and uppercase", Toast.LENGTH_SHORT).show()
+                }
 
 
-                    }
 
-                    override fun onRegistrationFailed(errorMessage: String?) {
-                        // Xử lý khi đăng ký thất bại
-                        Toast.makeText(this@SignupActivity, "Register failed: $errorMessage", Toast.LENGTH_SHORT).show()
-                    }
-                })
+
 
             }
             R.id.txt_back -> {
@@ -70,7 +74,12 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+    fun isStrongPassword(password: String): Boolean {
+        // Mật khẩu phải có ít nhất 11 ký tự bao gồm chữ cái, số, ký tự đặc biệt, viết hoa và viết thường
+        val pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@$!%*?&]{11,}$")
+        val matcher = pattern.matcher(password)
+        return matcher.matches()
+    }
     private fun onBackPressedCustom() {
         onBackPressed()
     }

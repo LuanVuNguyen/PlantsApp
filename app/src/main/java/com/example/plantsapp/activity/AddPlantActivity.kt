@@ -46,6 +46,7 @@ class AddPlantActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_plants)
+        showImageSelectionDialog()
         imageView = findViewById(R.id.imageView)
         imageView.setOnClickListener(this)
         if (intent.hasExtra("captured_image")) {
@@ -222,9 +223,14 @@ class AddPlantActivity : AppCompatActivity(), View.OnClickListener {
             } else {
                 Toast.makeText(this, "Camera access denied", Toast.LENGTH_SHORT).show()
             }
-        } else if (requestCode == REQUEST_STORAGE_PERMISSION) {
+        }
+        else {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Handle storage permission
+                val intent = Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                )
+                startActivityForResult(intent, REQUEST_IMAGE_PICK)
             } else {
                 Toast.makeText(this, "Storage access denied", Toast.LENGTH_SHORT).show()
             }

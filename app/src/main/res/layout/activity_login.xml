@@ -77,18 +77,27 @@
             android:textColorHint="@color/black"
             android:textSize="24sp" />
 
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:text="Show password?" />
+
         <TextView
             android:id="@+id/txt_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Reset password ?"
-            android:textAlignment="gravity"
             android:shadowColor="@color/white"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="5"
+            android:text="Reset password ?"
+            android:textAlignment="gravity"
             android:textColor="@color/design_default_color_error"
             android:textSize="16sp" />
 
@@ -96,8 +105,8 @@
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:background="@drawable/shape_btn_login" />
 
         <TextView

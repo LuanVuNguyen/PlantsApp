@@ -4,12 +4,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 
-class FirebaseHelper {
+class FirebaseSignUpHelper {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val mDatabase: DatabaseReference = FirebaseDatabase.getInstance().reference
     private val mStorage: StorageReference = FirebaseStorage.getInstance().reference
